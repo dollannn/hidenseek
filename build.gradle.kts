@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "se.playpark"
-version = "1.7.6"
+version = "1.0.0"
 description = "Hide and Seek Plugin"
 
 java {

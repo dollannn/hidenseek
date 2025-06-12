@@ -54,7 +54,7 @@ public class Main extends JavaPlugin implements Listener {
 
 		long start = System.currentTimeMillis();
 
-		getLogger().info("Loading Kenshin's Hide and Seek");
+		getLogger().info("Loading Dollans Hide and Seek");
 		Main.instance = this;
 
 		getLogger().info("Getting minecraft version...");
