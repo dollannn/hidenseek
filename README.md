@@ -8,10 +8,3 @@ License
 
 This project is licensed under the GPL v3 license.
 
-Compilation
------------
-
-We use maven to handle our dependencies.
-
-* Install [Maven 3](http://maven.apache.org/download.html)
-* Clone this repo and: `mvn clean install`
