@@ -49,9 +49,9 @@ public class CommandGroup {
 
 		if (data == null) {
 			player.sendMessage(
-					String.format("%s%sKenshin's Hide and Seek %s(%s1.7.6%s)\n", ChatColor.AQUA, ChatColor.BOLD,
+					String.format("%s%Dollan's Hide and Seek %s(%s1.0.0%s)\n", ChatColor.AQUA, ChatColor.BOLD,
 							ChatColor.GRAY, ChatColor.WHITE, ChatColor.GRAY) +
-							String.format("%sAuthor: %s[KenshinEto]\n", ChatColor.GRAY, ChatColor.WHITE) +
+							String.format("%sAuthor: %s[KenshinEto & Dollan]\n", ChatColor.GRAY, ChatColor.WHITE) +
 							String.format("%sHelp Command: %s/hs %shelp", ChatColor.GRAY, ChatColor.AQUA,
 									ChatColor.WHITE));
 			return;
