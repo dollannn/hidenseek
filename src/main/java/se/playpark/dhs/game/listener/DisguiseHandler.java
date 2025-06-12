@@ -8,6 +8,8 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.EnumWrappers;
+import org.bukkit.damage.DamageSource;
+import org.bukkit.damage.DamageType;
 import se.playpark.dhs.Main;
 import se.playpark.dhs.game.util.Disguise;
 import org.bukkit.Bukkit;
@@ -17,11 +19,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class DisguiseHandler implements Listener {
 
@@ -37,7 +39,6 @@ public class DisguiseHandler implements Listener {
         final Disguise disguise = Main.getInstance().getDisguiser().getDisguise(player);
         if (disguise == null)
             return;
-        ;
         if (event.getFrom().distance(event.getTo()) > .1) {
             disguise.setSolidify(false);
         }
@@ -86,7 +87,7 @@ public class DisguiseHandler implements Listener {
 
         double amount;
         if (Main.getInstance().supports(9)) {
-            amount = seeker.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getValue();
+            amount = Objects.requireNonNull(seeker.getAttribute(Attribute.ATTACK_DAMAGE)).getValue();
         } else {
             return; // 1.8 is not supported in Blockhunt yet!!!
         }
@@ -98,13 +99,14 @@ public class DisguiseHandler implements Listener {
         debounce.add(disguise.getPlayer());
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> {
-            EntityDamageByEntityEvent event = new EntityDamageByEntityEvent(seeker, disguise.getPlayer(),
-                    EntityDamageEvent.DamageCause.ENTITY_ATTACK, amount);
-            event.setDamage(amount);
-            disguise.getPlayer().setLastDamageCause(event);
+            // Create entity damage event with the correct parameters using DamageSource API
+            DamageSource damageSource = DamageSource.builder(DamageType.PLAYER_ATTACK)
+                    .withCausingEntity(seeker)
+                    .build();
+            EntityDamageEvent event = new EntityDamageEvent(disguise.getPlayer(), EntityDamageEvent.DamageCause.ENTITY_ATTACK, damageSource, amount);
             Main.getInstance().getServer().getPluginManager().callEvent(event);
             if (!event.isCancelled()) {
-                disguise.getPlayer().damage(amount);
+                disguise.getPlayer().damage(amount, seeker);
                 disguise.getPlayer().setVelocity(seeker.getLocation().getDirection().setY(.2).multiply(1));
             }
 

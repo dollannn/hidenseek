@@ -46,7 +46,7 @@ public class Disguise {
         if (Main.getInstance().supports(9)) {
             hidden.addEntry(player.getName());
         } else {
-            hider.spigot().setCollidesWithEntities(false);
+            hider.setCollidable(false);
         }
     }
 
@@ -64,7 +64,7 @@ public class Disguise {
         if (Main.getInstance().supports(9)) {
             hidden.removeEntry(hider.getName());
         } else {
-            hider.spigot().setCollidesWithEntities(true);
+            hider.setCollidable(true);
         }
     }
 

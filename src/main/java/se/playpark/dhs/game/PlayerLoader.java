@@ -137,7 +137,7 @@ public class PlayerLoader {
             player.removePotionEffect(effect.getType());
         }
         if (Main.getInstance().supports(9)) {
-            AttributeInstance attribute = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+            AttributeInstance attribute = player.getAttribute(Attribute.MAX_HEALTH);
             if (attribute != null)
                 player.setHealth(attribute.getValue());
             for (Player temp : Main.getInstance().getBoard().getPlayers()) {
@@ -177,7 +177,7 @@ public class PlayerLoader {
         }
         player.setFoodLevel(20);
         if (Main.getInstance().supports(9)) {
-            AttributeInstance attribute = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+            AttributeInstance attribute = player.getAttribute(Attribute.MAX_HEALTH);
             if (attribute != null)
                 player.setHealth(attribute.getValue());
         } else {
