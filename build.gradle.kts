@@ -45,7 +45,7 @@ dependencies {
     
     // Dependencies to be shaded (included in final jar)
     implementation("org.xerial:sqlite-jdbc:3.40.1.0")
-    implementation("com.github.cryptomorin:XSeries:9.4.0")
+    implementation("com.github.cryptomorin:XSeries:13.3.1")
     implementation("com.zaxxer:HikariCP:4.0.3")
     implementation("org.mariadb.jdbc:mariadb-java-client:3.1.2")
 }
