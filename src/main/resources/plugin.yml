@@ -1,7 +1,7 @@
-name: KenshinsHideAndSeek
-main: dev.tylerm.khs.Main
-version: 1.7.6
-author: KenshinEto
+name: DollansHideAndSeek
+main: se.playpark.dhs.Main
+version: 1.0.0
+author: KenshinEto, Dollan
 load: STARTUP
 api-version: 1.13
 depend: [ProtocolLib]
