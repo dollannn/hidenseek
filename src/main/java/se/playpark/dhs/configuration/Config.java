@@ -37,7 +37,8 @@ public class Config {
 			databasePort,
 			databaseUser,
 			databasePass,
-			databaseName;
+			databaseName,
+			electionPermission;
 
 	public static boolean nameTagsVisible,
 			permissionsRequired,
@@ -66,7 +67,8 @@ public class Config {
 			respawnAsSpectator,
 			waitTillNoneLeft,
 			gameOverTitle,
-			regenHealth;
+			regenHealth,
+			electionEnabled;
 
 	public static int minPlayers,
 			gameLength,
@@ -249,6 +251,11 @@ public class Config {
 		spawnPatch = config.getBoolean("spawnPatch");
 		dropItems = config.getBoolean("dropItems");
 		regenHealth = config.getBoolean("regenHealth");
+
+		electionEnabled = config.getBoolean("election.enabled");
+
+		// Election Permission
+		electionPermission = config.getString("election.permission");
 
 	}
 

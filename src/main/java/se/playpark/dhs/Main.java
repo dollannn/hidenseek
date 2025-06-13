@@ -191,6 +191,7 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new PlayerHandler(), this);
 		getServer().getPluginManager().registerEvents(new RespawnHandler(), this);
 		getServer().getPluginManager().registerEvents(new WorldInteractHandler(), this);
+		getServer().getPluginManager().registerEvents(new ElectionHandler(), this);
 	}
 
 	private void updateVersion() {

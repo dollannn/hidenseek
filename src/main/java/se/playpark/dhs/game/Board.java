@@ -26,6 +26,7 @@ public class Board {
     }
 
     private List<UUID> initialSeekers = null;
+    private final List<UUID> potentialSeekers = new ArrayList<>();
     private final Map<UUID, Type> Players = new HashMap<>();
     private final Map<UUID, CustomBoard> customBoards = new HashMap<>();
     private final Map<UUID, Integer> hider_kills = new HashMap<>(), seeker_kills = new HashMap<>(),
@@ -77,6 +78,10 @@ public class Board {
         return getSeekers().size();
     }
 
+    public int sizePotentialSeeker() {
+        return potentialSeekers.size();
+    }
+
     public int size() {
         return getPlayers().size();
     }
@@ -92,6 +97,13 @@ public class Board {
     public List<Player> getSeekers() {
         return Players.keySet().stream()
                 .filter(s -> Players.get(s) == Type.SEEKER)
+                .map(Bukkit::getPlayer)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+    }
+
+    public List<Player> getPotentialSeekers() {
+        return potentialSeekers.stream()
                 .map(Bukkit::getPlayer)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
@@ -135,12 +147,28 @@ public class Board {
         Players.put(player.getUniqueId(), Type.HIDER);
     }
 
+    public void add(Player player) {
+        Players.put(player.getUniqueId(), Type.HIDER);
+    }
+
     public void addSeeker(Player player) {
         Players.put(player.getUniqueId(), Type.SEEKER);
     }
 
     public void addSpectator(Player player) {
         Players.put(player.getUniqueId(), Type.SPECTATOR);
+    }
+
+    public void addPotentialSeeker(Player player) {
+        potentialSeekers.add(player.getUniqueId());
+    }
+
+    public void removePotentialSeeker(Player player) {
+        potentialSeekers.remove(player.getUniqueId());
+    }
+
+    public void clearPotentialSeekers() {
+        potentialSeekers.clear();
     }
 
     public void remove(Player player) {
@@ -377,9 +405,13 @@ public class Board {
 
     public void cleanup() {
         Players.clear();
-        ;
         initialSeekers = null;
+        potentialSeekers.clear();
         customBoards.clear();
+    }
+
+    public boolean isPotentialSeeker(Player player) {
+        return potentialSeekers.contains(player.getUniqueId());
     }
 
 }

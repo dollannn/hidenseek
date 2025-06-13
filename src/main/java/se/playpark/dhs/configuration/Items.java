@@ -21,6 +21,8 @@ public class Items {
             HIDER_LEGS, SEEKER_LEGS,
             HIDER_BOOTS, SEEKER_BOOTS;
 
+    public static ItemStack ELECTION_SELECT, ELECTION_DESELECT, ELECTION_RANDOMIZE, ELECTION_START;
+
     public static List<PotionEffect> HIDER_EFFECTS, SEEKER_EFFECTS;
 
     public static void loadItems() {
@@ -152,6 +154,30 @@ public class Items {
             if (effect != null)
                 HIDER_EFFECTS.add(effect);
             i++;
+        }
+
+        // Load election items
+        ConfigurationSection ElectionItems = manager.getConfigurationSection("items.election");
+        if (ElectionItems != null) {
+            ConfigurationSection selectSection = ElectionItems.getConfigurationSection("select");
+            if (selectSection != null) {
+                ELECTION_SELECT = createItem(selectSection);
+            }
+
+            ConfigurationSection deselectSection = ElectionItems.getConfigurationSection("deselect");
+            if (deselectSection != null) {
+                ELECTION_DESELECT = createItem(deselectSection);
+            }
+
+            ConfigurationSection randomizeSection = ElectionItems.getConfigurationSection("randomize");
+            if (randomizeSection != null) {
+                ELECTION_RANDOMIZE = createItem(randomizeSection);
+            }
+
+            ConfigurationSection startSection = ElectionItems.getConfigurationSection("start");
+            if (startSection != null) {
+                ELECTION_START = createItem(startSection);
+            }
         }
     }
 

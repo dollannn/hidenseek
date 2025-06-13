@@ -100,14 +100,22 @@ public class Game {
 
 	public void start() {
 		List<Player> seekers = new ArrayList<>(startingSeekerCount);
-		List<Player> pool = board.getPlayers();
-		for (int i = 0; i < startingSeekerCount; i++) {
-			try {
-				int rand = (int) (Math.random() * pool.size());
-				seekers.add(pool.remove(rand));
-			} catch (Exception e) {
-				Main.getInstance().getLogger().warning("Failed to select random seeker.");
-				return;
+
+		// Check if there are potential seekers already selected
+		if (electionEnabled && !board.getPotentialSeekers().isEmpty()) {
+			seekers.addAll(board.getPotentialSeekers());
+			board.clearPotentialSeekers();
+		} else {
+			// Fall back to random selection
+			List<Player> pool = board.getPlayers();
+			for (int i = 0; i < startingSeekerCount; i++) {
+				try {
+					int rand = (int) (Math.random() * pool.size());
+					seekers.add(pool.remove(rand));
+				} catch (Exception e) {
+					Main.getInstance().getLogger().warning("Failed to select random seeker.");
+					return;
+				}
 			}
 		}
 		start(seekers);
@@ -171,7 +179,7 @@ public class Game {
 			} else {
 				currentMap.getLobby().teleport(player);
 				board.createLobbyBoard(player);
-				board.addHider(player);
+				board.add(player);
 				PlayerLoader.joinPlayer(player, currentMap);
 			}
 		});
@@ -189,7 +197,7 @@ public class Game {
 				Main.getInstance().getDatabase().getInventoryData().saveInventory(player.getUniqueId(), data);
 			}
 			PlayerLoader.joinPlayer(player, currentMap);
-			board.addHider(player);
+			board.add(player);
 			board.createLobbyBoard(player);
 			board.reloadLobbyBoards();
 			if (announceMessagesToNonPlayers)
@@ -220,6 +228,12 @@ public class Game {
 		if (board.isHider(player) && status != Status.ENDING && status != Status.STANDBY) {
 			hiderLeft = true;
 		}
+
+		// Remove from potential seekers if they were selected
+		if (board.isPotentialSeeker(player)) {
+			board.removePotentialSeeker(player);
+		}
+
 		board.removeBoard(player);
 		board.remove(player);
 		if (status == Status.STANDBY) {

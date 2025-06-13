@@ -52,6 +52,28 @@ items:
       amount: 2
       type: INSTANT_HEAL
 
+  election:
+    select:
+      material: BLAZE_ROD
+      name: '&6Select Seeker'
+      lore:
+        - 'Right click a player to select them as a seeker'
+    deselect:
+      material: STICK
+      name: '&eDeselect Seeker'
+      lore:
+        - 'Right click a player to deselect them as a seeker'
+    randomize:
+      material: NETHER_STAR
+      name: '&bRandomize Seekers'
+      lore:
+        - 'Click to randomize all seekers'
+    start:
+      material: EMERALD
+      name: '&aStart Game'
+      lore:
+        - 'Click to start the game with the selected seekers'
+
 effects:
   seeker:
     '1':

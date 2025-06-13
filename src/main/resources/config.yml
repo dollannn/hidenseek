@@ -48,6 +48,12 @@ nametagsVisible: false
 # default: true
 permissionsRequired: true
 
+# Allows admins to get special items to rig the seeker election in a lobby. So seekers
+# are first determined then you can start the game.
+election:
+  enabled: true
+  permission: "hs.admin.election"
+
 # Minimum amount of players to start the game. Cannot go lower than 2.
 # default: 2
 minPlayers: 2

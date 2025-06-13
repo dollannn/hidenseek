@@ -162,6 +162,18 @@ public class PlayerLoader {
             player.getInventory().setItem(lobbyItemStartPosition, lobbyStartItem);
         if (lobbyLeaveItem != null)
             player.getInventory().setItem(lobbyItemLeavePosition, lobbyLeaveItem);
+
+        // Give election items to admins
+        if (electionEnabled && player.hasPermission(electionPermission)) {
+            if (Items.ELECTION_SELECT != null)
+                player.getInventory().setItem(2, Items.ELECTION_SELECT);
+            if (Items.ELECTION_DESELECT != null)
+                player.getInventory().setItem(3, Items.ELECTION_DESELECT);
+            if (Items.ELECTION_RANDOMIZE != null)
+                player.getInventory().setItem(4, Items.ELECTION_RANDOMIZE);
+            if (Items.ELECTION_START != null)
+                player.getInventory().setItem(5, Items.ELECTION_START);
+        }
     }
 
     private static void loadPlayer(Player player) {
