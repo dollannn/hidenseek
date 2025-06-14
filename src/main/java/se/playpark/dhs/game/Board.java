@@ -4,6 +4,7 @@ import se.playpark.dhs.game.events.Border;
 import se.playpark.dhs.game.events.Glow;
 import se.playpark.dhs.game.events.Taunt;
 import se.playpark.dhs.game.util.Status;
+import se.playpark.dhs.game.util.PrefixManager;
 import se.playpark.dhs.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -145,6 +146,7 @@ public class Board {
 
     public void addHider(Player player) {
         Players.put(player.getUniqueId(), Type.HIDER);
+        PrefixManager.setHiderPrefix(player);
     }
 
     public void add(Player player) {
@@ -153,10 +155,12 @@ public class Board {
 
     public void addSeeker(Player player) {
         Players.put(player.getUniqueId(), Type.SEEKER);
+        PrefixManager.setSeekerPrefix(player);
     }
 
     public void addSpectator(Player player) {
         Players.put(player.getUniqueId(), Type.SPECTATOR);
+        PrefixManager.removeGamePrefix(player);
     }
 
     public void addPotentialSeeker(Player player) {
@@ -173,6 +177,7 @@ public class Board {
 
     public void remove(Player player) {
         Players.remove(player.getUniqueId());
+        PrefixManager.removeGamePrefix(player);
     }
 
     public boolean onSameTeam(Player player1, Player player2) {
@@ -408,6 +413,7 @@ public class Board {
         initialSeekers = null;
         potentialSeekers.clear();
         customBoards.clear();
+        PrefixManager.cleanup();
     }
 
     public boolean isPotentialSeeker(Player player) {

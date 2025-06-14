@@ -6,8 +6,10 @@ import se.playpark.dhs.database.Database;
 import se.playpark.dhs.database.util.PlayerInfo;
 import se.playpark.dhs.game.Board;
 import se.playpark.dhs.game.util.Status;
+import se.playpark.dhs.game.util.PrefixManager;
 
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,12 +28,12 @@ public class PAPIExpansion extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getAuthor() {
-        return "KenshinEto";
+        return "KenshinEto, Dollan";
     }
 
     @Override
     public @NotNull String getVersion() {
-        return "1.7.6";
+        return "1.0.0";
     }
 
     @Override
@@ -47,10 +49,26 @@ public class PAPIExpansion extends PlaceholderExpansion {
         Status status = Main.getInstance().getGame().getStatus();
         Board board = Main.getInstance().getBoard();
 
-        System.out.println(args);
-
         if (args.length < 1)
             return null;
+
+        if (player.isOnline() && args.length >= 1) {
+            Player onlinePlayer = player.getPlayer();
+
+            if (args.length == 1) {
+                String gameStatePlaceholder = PrefixManager.getPlaceholderValue(onlinePlayer, args[0]);
+                if (gameStatePlaceholder != null) {
+                    return gameStatePlaceholder;
+                }
+            }
+
+            if (args.length == 2 && args[0].equals("game")) {
+                String gameStatePlaceholder = PrefixManager.getPlaceholderValue(onlinePlayer, args[1]);
+                if (gameStatePlaceholder != null) {
+                    return gameStatePlaceholder;
+                }
+            }
+        }
 
         if (args.length == 1 && args[0].equals("hiders")) {
             if (!board.containsUUID(player.getUniqueId())) {

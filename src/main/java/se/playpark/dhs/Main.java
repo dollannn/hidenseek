@@ -19,6 +19,7 @@ import se.playpark.dhs.command.world.Delete;
 import se.playpark.dhs.command.world.Tp;
 import se.playpark.dhs.database.Database;
 import se.playpark.dhs.command.util.CommandGroup;
+import se.playpark.dhs.command.TestPrefix;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -128,7 +129,8 @@ public class Main extends JavaPlugin implements Listener {
 				new SetExitLocation(),
 				new Top(),
 				new Wins(),
-				new Confirm());
+				new Confirm(),
+				new TestPrefix());
 
 		getLogger().info("Loading game...");
 		game = new Game(null, board);

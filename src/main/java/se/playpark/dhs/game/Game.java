@@ -235,7 +235,7 @@ public class Game {
 		}
 
 		board.removeBoard(player);
-		board.remove(player);
+		board.remove(player); // This will also remove the prefix via the Board.remove() method
 		if (status == Status.STANDBY) {
 			board.reloadLobbyBoards();
 		} else {

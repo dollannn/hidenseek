@@ -29,7 +29,7 @@ public class EntityHider implements Listener {
     protected Table<Integer, Integer, Boolean> observerEntityMap = HashBasedTable.create();
 
     private static final PacketType[] ENTITY_PACKETS = {
-            ENTITY_EQUIPMENT, ANIMATION, NAMED_ENTITY_SPAWN,
+            ENTITY_EQUIPMENT, ANIMATION,
             COLLECT, SPAWN_ENTITY, SPAWN_ENTITY_EXPERIENCE_ORB,
             ENTITY_VELOCITY, REL_ENTITY_MOVE, ENTITY_LOOK,
             ENTITY_TELEPORT, ENTITY_HEAD_ROTATION, ENTITY_STATUS, ATTACH_ENTITY, ENTITY_METADATA,
